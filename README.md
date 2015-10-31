@@ -70,11 +70,11 @@ var app = angular.module('miniRouting', ['ui.router']);
         settingsTmpl.html
 ```
 * Note that each feature has it's own controller and template (products also has it's own service). Once you're done making the folders and files above, be sure to include all your JAVASCRIPT files in your index.html page as scripts. (Note that html files do not need to be injected. We will inject them as templates later on.)
-* Head over to productService.js and add this to the file:
+* Head over to productsService.js and add this to the file:
 ```javascript
 var app = angular.module('miniRouting');
 
-app.service('productService', function(){
+app.service('productsService', function(){
   this.shoeData = [
     {
       type: 'Nike',
@@ -222,23 +222,23 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     </div>
 ```
 * So we know that in our controller, $stateParams.id (because of :/id in our router) will be either 'socks' or 'shoes' depending on which page the user is in. With this knowledge, we can add a simple 'if' statement to check which product page the user is on.
-* In your products controller, inject ```$stateParams``` and ```productService``` into your controller. 
-* Now write an if statement, if ```$stateParams.id``` is equal to 'shoes', then ```$scope.productData``` should be set to ```productService.shoeData```. If ```$stateParams.id``` is equal to 'socks', then ```$scope.productData``` should be set to ```productService.sockData```.
+* In your products controller, inject ```$stateParams``` and ```productsService``` into your controller. 
+* Now write an if statement, if ```$stateParams.id``` is equal to 'shoes', then ```$scope.productData``` should be set to ```productsService.shoeData```. If ```$stateParams.id``` is equal to 'socks', then ```$scope.productData``` should be set to ```productsService.sockData```.
 * Now we know that we have data on the scope equal to certain product data, depending on which product the user is looking at.
 * Your productCtrl.js should now look like this: (Note: Please don't just copy and paste. Try to really understand what's going on.)
 ```javascript
 var app = angular.module('miniRouting');
 
-app.controller('productsCtrl', function ($scope, $stateParams, productService) {
+app.controller('productsCtrl', function ($scope, $stateParams, productsService) {
     if ($stateParams.id === 'shoes') {
-        $scope.productData = productService.shoeData;
+        $scope.productData = productsService.shoeData;
     }
     else if ($stateParams.id === 'socks') {
-        $scope.productData = productService.sockData;
+        $scope.productData = productsService.sockData;
     }
 });
 ```
-* Now that our data is on the $scope of our productCtrl, head over to your productTmpl.html page and loop over $scope.productData and show the type, color, and size of the product.
+* Now that our data is on the $scope of our productsCtrl, head over to your productTmpl.html page and loop over $scope.productData and show the type, color, and size of the product.
 * productTmpl.html should now look like this
 ```html
 <h1> Product Page </h1>
